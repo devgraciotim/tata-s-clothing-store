@@ -32,5 +32,10 @@ public class Sale {
     Employee employee;
 
     @ManyToMany
+    @JoinTable(
+            name = "sale_product",
+            joinColumns = @JoinColumn(name = "sale_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id")
+    )
     List<Product> products;
 }
