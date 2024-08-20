@@ -1,10 +1,13 @@
 package clothing_store.app.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -18,6 +21,16 @@ public class Sale {
     String address;
     Double total_value;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "client_id")
+    @JsonIgnoreProperties("sales")
     Client client;
+
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "employee_id")
+    @JsonIgnoreProperties("sales")
+    Employee employee;
+
+    @ManyToMany
+    List<Product> products;
 }

@@ -23,8 +23,6 @@ public class Client {
     Integer age;
     String phone;
 
-    @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "sale_id")
-    @JsonIgnoreProperties("client")
+    @OneToMany(mappedBy = "client")
     List<Sale> sales;
 }
