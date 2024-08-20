@@ -1,13 +1,13 @@
 package clothing_store.app.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -22,4 +22,9 @@ public class Client {
     String cpf;
     Integer age;
     String phone;
+
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "sale_id")
+    @JsonIgnoreProperties("client")
+    List<Sale> sales;
 }
