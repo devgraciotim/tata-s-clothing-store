@@ -22,11 +22,11 @@ public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    @NotBlank
+    @NotBlank(message = "Nome não pode estar vazio.")
     String name;
-    @CPF
+    @CPF(message = "Insira um CPF válido")
     String cpf;
-    @Positive
+    @Positive(message = "Insira uma idade válida")
     Integer age;
     @Pattern(regexp = "^\\d{12,13}$", message = "Telefone inválido.")
     String phone;

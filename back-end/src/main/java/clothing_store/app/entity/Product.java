@@ -24,6 +24,6 @@ public class Product {
     @Positive
     Double price;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "products")
     List<Sale> sales;
 }

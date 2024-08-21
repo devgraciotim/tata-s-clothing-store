@@ -37,12 +37,13 @@ public class Sale {
     @NotNull
     Employee employee;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(
             name = "sale_product",
             joinColumns = @JoinColumn(name = "sale_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id")
     )
+    @JsonIgnoreProperties("sales")
     @NotEmpty
     List<Product> products;
 }
