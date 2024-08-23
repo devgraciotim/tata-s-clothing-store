@@ -1,2 +1,2 @@
-# tata-s-clothing-store
-Tata's clothing store project
+# tata-s-marketplace
+Tata's Marketplace project
