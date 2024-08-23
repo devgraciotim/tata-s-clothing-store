@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Random;
 
 @Service
 public class EmployeeService {
@@ -15,22 +16,24 @@ public class EmployeeService {
     private EmployeeRepository employeeRepository;
 
     public String save(Employee employee) {
-        if (validEmployeeByRegistrationNumber(employee.getRegistrationNumber())) {
-            employeeRepository.save(employee);
-        }
+        employee.setRegistrationNumber(generateUniqueRegistrationNumber());
+        employeeRepository.save(employee);
         return "Funcionário salvo com sucesso!";
     }
 
-    public Boolean validEmployeeByRegistrationNumber(String registration_number) {
-        Employee employee = employeeRepository.findByRegistrationNumber(registration_number);
-        if (employee != null) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "\nFuncionario com Número de Registro " + employee.getRegistrationNumber() + " já está cadastrado\n" +
-                    "Id: " + employee.getId() + "\n" +
-                    "Nome: " + employee.getName()
-            );
-        } else {
-            return true;
-        }
+    private String generateUniqueRegistrationNumber() {
+        String registrationNumber;
+        do {
+            registrationNumber = generateRegistrationNumber();
+        } while (employeeRepository.existsByRegistrationNumber(registrationNumber));
+        return registrationNumber;
+    }
+
+    private String generateRegistrationNumber() {
+        Random random = new Random();
+        int number = random.nextInt((int) Math.pow(10, 5));
+        String formattedNumber = String.format("%0" + 5 + "d", number);
+        return "RN" + formattedNumber;
     }
 
     public List<Employee> findAll() {

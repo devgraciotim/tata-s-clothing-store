@@ -23,7 +23,6 @@ public class Employee {
     String name;
     @Positive
     Integer age;
-    @NotBlank
     String registrationNumber;
 
     @OneToMany(mappedBy = "employee")
