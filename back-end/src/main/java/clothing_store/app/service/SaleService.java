@@ -8,6 +8,7 @@ import clothing_store.app.repository.ClientRepository;
 import clothing_store.app.repository.EmployeeRepository;
 import clothing_store.app.repository.ProductRepository;
 import clothing_store.app.repository.SaleRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,17 +34,9 @@ public class SaleService {
 
         sale.setEmployee(validEmployeeById(sale.getEmployee().getId()));
 
-        List<Product> productsInfo = new ArrayList<>();
-        Double total_value = 0.0;
-        sale.getProducts().forEach(product -> {
-            if (productRepository.existsById(product.getId())) {
-                Product productSale = productRepository.findById(product.getId()).get();
-                productsInfo.add(productSale);
-            }
-        });
+        sale.setProducts(validProductsById(sale.getProducts()));
 
-        sale.setProducts(productsInfo);
-        sale.setTotal_value(total_value);
+        sale.setTotal_value(calculateTotalValue(sale.getProducts()));
 
         saleRepository.save(sale);
         return "Venda salvo com sucesso!";
@@ -54,7 +47,7 @@ public class SaleService {
             Client client = clientRepository.findById(id).get();
             return client;
         }
-        throw new RuntimeException("Cliente com id " + id + " não foi encontrado");
+        throw new EntityNotFoundException("Cliente com id " + id + " não foi encontrado");
     }
 
     public Employee validEmployeeById(Long id) {
@@ -62,11 +55,25 @@ public class SaleService {
             Employee employee = employeeRepository.findById(id).get();
             return employee;
         }
-        throw new RuntimeException("Funcionário com id " + id + "não foi encontrado");
+        throw new EntityNotFoundException ("Funcionário com id " + id + "não foi encontrado");
     }
 
     public List<Product> validProductsById(List<Product> products) {
-        return null;
+        List<Product> productsInfo = new ArrayList<>();
+        products.forEach(product -> {
+            if (productRepository.existsById(product.getId())) {
+                Product productSale = productRepository.findById(product.getId()).get();
+                productsInfo.add(productSale);
+            } else {
+                throw new EntityNotFoundException("Produto com id " + product.getId() + " não encontrado");
+            }
+        });
+        return productsInfo;
+    }
+
+    public Double calculateTotalValue(List<Product> products) {
+        Double total_value = products.stream().mapToDouble(Product::getPrice).sum();
+        return total_value;
     }
 
     public List<Sale> findAll() {
@@ -74,17 +81,29 @@ public class SaleService {
     }
 
     public Sale findById(Long id) {
-        return saleRepository.findById(id).get();
+        if (saleRepository.findById(id).isPresent()) {
+            return saleRepository.findById(id).get();
+        } else {
+            throw new EntityNotFoundException ("Venda com id " + id + " não encontrada");
+        }
     }
 
     public String deleteById(Long id) {
-        saleRepository.deleteById(id);
-        return "Venda deletado com sucesso!";
+        if (saleRepository.existsById(id)) {
+            saleRepository.deleteById(id);
+            return "Venda deletado com sucesso!";
+        } else {
+            throw new EntityNotFoundException ("Venda com id " + id + " não encontrada");
+        }
     }
 
     public String updateById(Long id, Sale sale) {
-        sale.setId(id);
-        saleRepository.save(sale);
-        return "Venda atualizado com sucesso!";
+        if (saleRepository.existsById(id)) {
+            sale.setId(id);
+            saleRepository.save(sale);
+            return "Venda atualizado com sucesso!";
+        } else {
+            throw new EntityNotFoundException ("Venda com id " + id + " não encontrada");
+        }
     }
 }
