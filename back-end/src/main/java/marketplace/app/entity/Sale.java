@@ -29,7 +29,7 @@ public class Sale {
     @JoinColumn(name = "client_id")
     @JsonIgnoreProperties("sales")
     @NotNull
-    Client client;
+    Customer customer;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "employee_id")

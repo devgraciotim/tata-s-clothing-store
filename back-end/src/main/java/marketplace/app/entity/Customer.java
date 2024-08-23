@@ -17,7 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Client {
+public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
@@ -30,6 +30,6 @@ public class Client {
     @Pattern(regexp = "^\\d{12,13}$", message = "Telefone inválido.")
     String phone;
 
-    @OneToMany(mappedBy = "client")
+    @OneToMany(mappedBy = "customer")
     List<Sale> sales;
 }

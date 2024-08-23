@@ -1,10 +1,10 @@
 package marketplace.app.service;
 
-import marketplace.app.entity.Client;
+import marketplace.app.entity.Customer;
 import marketplace.app.entity.Employee;
 import marketplace.app.entity.Product;
 import marketplace.app.entity.Sale;
-import marketplace.app.repository.ClientRepository;
+import marketplace.app.repository.CustomerRepository;
 import marketplace.app.repository.EmployeeRepository;
 import marketplace.app.repository.ProductRepository;
 import marketplace.app.repository.SaleRepository;
@@ -21,7 +21,7 @@ public class SaleService {
     private SaleRepository saleRepository;
 
     @Autowired
-    private ClientRepository clientRepository;
+    private CustomerRepository customerRepository;
 
     @Autowired
     private EmployeeRepository employeeRepository;
@@ -30,7 +30,7 @@ public class SaleService {
     private ProductRepository productRepository;
 
     public String save(Sale sale) {
-        sale.setClient(validClientById(sale.getClient().getId()));
+        sale.setCustomer(validClientById(sale.getCustomer().getId()));
 
         sale.setEmployee(validEmployeeById(sale.getEmployee().getId()));
 
@@ -42,16 +42,16 @@ public class SaleService {
         return "Venda salvo com sucesso!";
     }
 
-    public Client validClientById(Long id) {
-        if (clientRepository.existsById(id)) {
-            Client client = clientRepository.findById(id).get();
-            return client;
+    public Customer validClientById(Long id) {
+        if (customerRepository.existsById(id)) {
+            Customer customer = customerRepository.findById(id).get();
+            return customer;
         }
         throw new EntityNotFoundException("Cliente com id " + id + " não foi encontrado");
     }
 
     public Employee validEmployeeById(Long id) {
-        if (clientRepository.existsById(id)) {
+        if (customerRepository.existsById(id)) {
             Employee employee = employeeRepository.findById(id).get();
             return employee;
         }
