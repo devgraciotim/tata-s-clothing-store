@@ -1,12 +1,14 @@
-package clothing_store.app.entity;
+package marketplace.app.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.br.CPF;
 
 import java.util.List;
 
@@ -15,16 +17,19 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Employee {
+public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    @NotBlank
+    @NotBlank(message = "Nome não pode estar vazio.")
     String name;
-    @Positive
+    @CPF(message = "Insira um CPF válido")
+    String cpf;
+    @Positive(message = "Insira uma idade válida")
     Integer age;
-    String registrationNumber;
+    @Pattern(regexp = "^\\d{12,13}$", message = "Telefone inválido.")
+    String phone;
 
-    @OneToMany(mappedBy = "employee")
+    @OneToMany(mappedBy = "client")
     List<Sale> sales;
 }

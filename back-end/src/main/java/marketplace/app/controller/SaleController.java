@@ -1,13 +1,11 @@
-package clothing_store.app.controller;
+package marketplace.app.controller;
 
-import clothing_store.app.entity.Sale;
-import clothing_store.app.service.SaleService;
-import jakarta.persistence.EntityNotFoundException;
+import marketplace.app.entity.Sale;
+import marketplace.app.service.SaleService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package clothing_store.app;
+package marketplace.app;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

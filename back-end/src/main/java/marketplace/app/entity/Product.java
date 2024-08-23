@@ -1,4 +1,4 @@
-package clothing_store.app.entity;
+package marketplace.app.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;

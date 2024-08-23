@@ -1,4 +1,4 @@
-package clothing_store.app.entity;
+package marketplace.app.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;

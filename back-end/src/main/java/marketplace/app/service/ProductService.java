@@ -1,7 +1,7 @@
-package clothing_store.app.service;
+package marketplace.app.service;
 
-import clothing_store.app.entity.Product;
-import clothing_store.app.repository.ProductRepository;
+import marketplace.app.entity.Product;
+import marketplace.app.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;

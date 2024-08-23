@@ -1,13 +1,13 @@
-package clothing_store.app.service;
+package marketplace.app.service;
 
-import clothing_store.app.entity.Client;
-import clothing_store.app.entity.Employee;
-import clothing_store.app.entity.Product;
-import clothing_store.app.entity.Sale;
-import clothing_store.app.repository.ClientRepository;
-import clothing_store.app.repository.EmployeeRepository;
-import clothing_store.app.repository.ProductRepository;
-import clothing_store.app.repository.SaleRepository;
+import marketplace.app.entity.Client;
+import marketplace.app.entity.Employee;
+import marketplace.app.entity.Product;
+import marketplace.app.entity.Sale;
+import marketplace.app.repository.ClientRepository;
+import marketplace.app.repository.EmployeeRepository;
+import marketplace.app.repository.ProductRepository;
+import marketplace.app.repository.SaleRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

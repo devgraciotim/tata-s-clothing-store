@@ -1,7 +1,7 @@
-package clothing_store.app.controller;
+package marketplace.app.controller;
 
-import clothing_store.app.entity.Client;
-import clothing_store.app.service.ClientService;
+import marketplace.app.entity.Product;
+import marketplace.app.service.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,39 +11,39 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/client")
-public class ClientController {
+@RequestMapping("/api/product")
+public class ProductController {
+
     @Autowired
-    private ClientService clientService;
+    private ProductService productService;
 
     @PostMapping("/save")
-    public ResponseEntity<?> save(@Valid @RequestBody Client client) {
-        String message = clientService.save(client);
+    public ResponseEntity<?> save(@Valid @RequestBody Product product) {
+        String message = productService.save(product);
         return new ResponseEntity<String>(message, HttpStatus.CREATED);
     }
 
     @GetMapping("/findAll")
     public ResponseEntity<?> findAll() {
-        List<Client> clients = clientService.findAll();
-        return new ResponseEntity<List<Client>>(clients, HttpStatus.OK);
+        List<Product> products = productService.findAll();
+        return new ResponseEntity<List<Product>>(products, HttpStatus.OK);
     }
 
     @GetMapping("/findById/{id}")
     public ResponseEntity<?> findById(@PathVariable Long id) {
-        Client client = clientService.findById(id);
-        return new ResponseEntity<Client>(client, HttpStatus.OK);
+        Product product = productService.findById(id);
+        return new ResponseEntity<Product>(product, HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteById(@PathVariable Long id) {
-        String message = clientService.deleteById(id);
+        String message = productService.deleteById(id);
         return new ResponseEntity<String>(message, HttpStatus.OK);
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> updateById(@PathVariable Long id, @Valid @RequestBody Client client) {
-        String message = clientService.updateById(id, client);
+    public ResponseEntity<?> updateById(@PathVariable Long id, @Valid @RequestBody Product product) {
+        String message = productService.updateById(id, product);
         return new ResponseEntity<String>(message, HttpStatus.OK);
-
     }
 }

@@ -1,6 +1,6 @@
-package clothing_store.app.repository;
+package marketplace.app.repository;
 
-import clothing_store.app.entity.Product;
+import marketplace.app.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {

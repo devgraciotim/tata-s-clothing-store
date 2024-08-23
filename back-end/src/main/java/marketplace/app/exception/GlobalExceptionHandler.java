@@ -1,4 +1,4 @@
-package clothing_store.app.exception;
+package marketplace.app.exception;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.dao.DataIntegrityViolationException;
