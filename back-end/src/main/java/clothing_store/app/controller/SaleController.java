@@ -27,25 +27,20 @@ public class SaleController {
 
     @GetMapping("/findAll")
     public ResponseEntity<?> findAll() {
-
         List<Sale> sales = saleService.findAll();
         return new ResponseEntity<List<Sale>>(sales, HttpStatus.OK);
-
     }
 
     @GetMapping("/findById/{id}")
     public ResponseEntity<?> findById(@PathVariable Long id) {
-
         Sale sale = saleService.findById(id);
         return new ResponseEntity<Sale>(sale, HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteById(@PathVariable Long id) {
-
         String message = saleService.deleteById(id);
         return new ResponseEntity<String>(message, HttpStatus.OK);
-
     }
 
     @PutMapping("/update/{id}")

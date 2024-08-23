@@ -18,51 +18,32 @@ public class ClientController {
 
     @PostMapping("/save")
     public ResponseEntity<?> save(@Valid @RequestBody Client client) {
-        try {
-            String message = clientService.save(client);
-            return new ResponseEntity<String>(message, HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<String>("Erro: " + e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
+        String message = clientService.save(client);
+        return new ResponseEntity<String>(message, HttpStatus.CREATED);
     }
 
     @GetMapping("/findAll")
     public ResponseEntity<?> findAll() {
-        try {
-            List<Client> clients = clientService.findAll();
-            return new ResponseEntity<List<Client>>(clients, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<String>("Erro: " + e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
+        List<Client> clients = clientService.findAll();
+        return new ResponseEntity<List<Client>>(clients, HttpStatus.OK);
     }
 
     @GetMapping("/findById/{id}")
     public ResponseEntity<?> findById(@PathVariable Long id) {
-        try {
-            Client client = clientService.findById(id);
-            return new ResponseEntity<Client>(client, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<String>("Erro: " + e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
+        Client client = clientService.findById(id);
+        return new ResponseEntity<Client>(client, HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteById(@PathVariable Long id) {
-        try {
-            String message = clientService.deleteById(id);
-            return new ResponseEntity<String>(message, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<String>("Erro: " + e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
+        String message = clientService.deleteById(id);
+        return new ResponseEntity<String>(message, HttpStatus.OK);
     }
 
     @PutMapping("/update/{id}")
     public ResponseEntity<?> updateById(@PathVariable Long id, @Valid @RequestBody Client client) {
-        try {
-            String message = clientService.updateById(id, client);
-            return new ResponseEntity<String>(message, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<String>("Erro: " + e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
+        String message = clientService.updateById(id, client);
+        return new ResponseEntity<String>(message, HttpStatus.OK);
+
     }
 }

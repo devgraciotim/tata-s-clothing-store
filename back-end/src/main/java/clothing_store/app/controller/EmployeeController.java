@@ -19,51 +19,31 @@ public class EmployeeController {
 
     @PostMapping("/save")
     public ResponseEntity<?> save(@Valid @RequestBody Employee employee) {
-        try {
-            String message = employeeService.save(employee);
-            return new ResponseEntity<String>(message, HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<String>("Erro: " + e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
+        String message = employeeService.save(employee);
+        return new ResponseEntity<String>(message, HttpStatus.CREATED);
     }
 
     @GetMapping("/findAll")
     public ResponseEntity<?> findAll() {
-        try {
-            List<Employee> employees = employeeService.findAll();
-            return new ResponseEntity<List<Employee>>(employees, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<String>("Erro: " + e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
+        List<Employee> employees = employeeService.findAll();
+        return new ResponseEntity<List<Employee>>(employees, HttpStatus.OK);
     }
 
     @GetMapping("/findById/{id}")
     public ResponseEntity<?> findById(@PathVariable Long id) {
-        try {
-            Employee employee = employeeService.findById(id);
-            return new ResponseEntity<Employee>(employee, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<String>("Erro: " + e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
+        Employee employee = employeeService.findById(id);
+        return new ResponseEntity<Employee>(employee, HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteById(@PathVariable Long id) {
-        try {
-            String message = employeeService.deleteById(id);
-            return new ResponseEntity<String>(message, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<String>("Erro: " + e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
+        String message = employeeService.deleteById(id);
+        return new ResponseEntity<String>(message, HttpStatus.OK);
     }
 
     @PutMapping("/update/{id}")
     public ResponseEntity<?> updateById(@PathVariable Long id, @Valid @RequestBody Employee employee) {
-        try {
-            String message = employeeService.updateById(id, employee);
-            return new ResponseEntity<String>(message, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<String>("Erro: " + e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
+        String message = employeeService.updateById(id, employee);
+        return new ResponseEntity<String>(message, HttpStatus.OK);
     }
 }
