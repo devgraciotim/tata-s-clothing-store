@@ -3,7 +3,9 @@ package clothing_store.app.service;
 import clothing_store.app.entity.Client;
 import clothing_store.app.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -13,8 +15,22 @@ public class ClientService {
     private ClientRepository clientRepository;
 
     public String save(Client client) {
-        clientRepository.save(client);
+        if (validClientByCpf(client.getCpf())) {
+            clientRepository.save(client);
+        }
         return "Cliente salvo com sucesso!";
+    }
+
+    public Boolean validClientByCpf(String cpf) {
+        Client client = clientRepository.findByCpf(cpf);
+        if (client != null) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "\nCliente com CPF " + client.getCpf() + " já está cadastrado\n" +
+                    "Id: " + client.getId() + "\n" +
+                    "Nome: " + client.getName()
+            );
+        } else {
+            return true;
+        }
     }
 
     public List<Client> findAll() {

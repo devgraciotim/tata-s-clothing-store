@@ -3,7 +3,9 @@ package clothing_store.app.service;
 import clothing_store.app.entity.Product;
 import clothing_store.app.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -13,8 +15,22 @@ public class ProductService {
     private ProductRepository productRepository;
 
     public String save(Product product) {
-        productRepository.save(product);
+        if (validProductByName(product.getName())) {
+            productRepository.save(product);
+        }
         return "Produto salvo com sucesso!";
+    }
+
+    public Boolean validProductByName(String name) {
+        Product product = productRepository.findByName(name);
+        if (product != null) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "\nProduto com nome " + product.getName() + " já está cadastrado\n" +
+                    "Id: " + product.getId() + "\n" +
+                    "Valor: R$ " + product.getPrice()
+            );
+        } else {
+            return true;
+        }
     }
 
     public List<Product> findAll() {

@@ -24,7 +24,7 @@ public class Employee {
     @Positive
     Integer age;
     @NotBlank
-    String registration_number;
+    String registrationNumber;
 
     @OneToMany(mappedBy = "employee")
     List<Sale> sales;
