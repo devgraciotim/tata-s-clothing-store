@@ -1,9 +1,13 @@
 package marketplace.app.service;
 
+import marketplace.app.entity.Customer;
 import marketplace.app.entity.Employee;
+import marketplace.app.entity.Sale;
 import marketplace.app.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Random;
@@ -51,5 +55,17 @@ public class EmployeeService {
         employee.setId(id);
         employeeRepository.save(employee);
         return "Funcionário atualizado com sucesso!";
+    }
+
+    public Employee findByRegistrationNumber(String registrationNumber) {
+        return employeeRepository.findByRegistrationNumber(registrationNumber);
+    }
+
+    public List<Sale> findSalesByEmployeeRegistrationNumber(String registrationNumber) {
+        return employeeRepository.findSalesByEmployeeRegistrationNumber(registrationNumber);
+    }
+
+    public Employee findByName(String name) {
+        return employeeRepository.findByName(name);
     }
 }

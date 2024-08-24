@@ -106,4 +106,16 @@ public class SaleService {
             throw new EntityNotFoundException ("Venda com id " + id + " não encontrada");
         }
     }
+
+    public Sale findTopSaleByTotalValue() {
+        return saleRepository.findTopSaleByTotalValue();
+    }
+
+    public List<Sale> findByEmployee(Employee employee) {
+        return saleRepository.findByEmployee(employee);
+    }
+
+    public List<Sale> findByCustomer(Customer customer) {
+        return saleRepository.findByCustomer(customer);
+    }
 }

@@ -46,4 +46,22 @@ public class ProductController {
         String message = productService.updateById(id, product);
         return new ResponseEntity<String>(message, HttpStatus.OK);
     }
+
+    @GetMapping("/findByName/{name}")
+    public ResponseEntity<?> findByName(@PathVariable String name) {
+        Product product = productService.findByName(name);
+        return new ResponseEntity<Product>(product, HttpStatus.OK);
+    }
+
+    @GetMapping("/topProduct")
+    public ResponseEntity<?> topProduct() {
+        Product product = productService.topProduct();
+        return new ResponseEntity<Product>(product, HttpStatus.OK);
+    }
+
+    @GetMapping("/mostExpensive")
+    public ResponseEntity<?> mostExpensive() {
+        Product product = productService.mostExpensive();
+        return new ResponseEntity<Product>(product, HttpStatus.OK);
+    }
 }

@@ -1,5 +1,7 @@
 package marketplace.app.controller;
 
+import marketplace.app.entity.Customer;
+import marketplace.app.entity.Employee;
 import marketplace.app.entity.Sale;
 import marketplace.app.service.SaleService;
 import jakarta.validation.Valid;
@@ -45,5 +47,23 @@ public class SaleController {
     public ResponseEntity<?> updateById(@PathVariable Long id, @Valid @RequestBody Sale sale) {
         String message = saleService.updateById(id, sale);
         return new ResponseEntity<String>(message, HttpStatus.OK);
+    }
+
+    @GetMapping("/topSale")
+    public ResponseEntity<?> topSale() {
+        Sale sale = saleService.findTopSaleByTotalValue();
+        return new ResponseEntity<Sale>(sale, HttpStatus.OK);
+    }
+
+    @GetMapping("/findSalesByEmployee")
+    public ResponseEntity<?> findSalesByEmployee(@RequestBody Employee employee) {
+        List<Sale> sales = saleService.findByEmployee(employee);
+        return new ResponseEntity<List<Sale>>(sales, HttpStatus.OK);
+    }
+
+    @GetMapping("/findSalesByCustomer")
+    public ResponseEntity<?> findByCustomer(@RequestBody Customer customer) {
+        List<Sale> sales = saleService.findByCustomer(customer);
+        return new ResponseEntity<List<Sale>>(sales, HttpStatus.OK);
     }
 }

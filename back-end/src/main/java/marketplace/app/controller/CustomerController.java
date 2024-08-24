@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/client")
+@RequestMapping("/api/customer")
 public class CustomerController {
     @Autowired
     private CustomerService customerService;
@@ -45,5 +45,23 @@ public class CustomerController {
         String message = customerService.updateById(id, customer);
         return new ResponseEntity<String>(message, HttpStatus.OK);
 
+    }
+
+    @GetMapping("/top3")
+    public ResponseEntity<?> top3ByTotalSpend() {
+        List<Customer> customers = customerService.findTop3CustomersByTotalSpend();
+        return new ResponseEntity<List<Customer>>(customers, HttpStatus.OK);
+    }
+
+    @GetMapping("/findByName/{name}")
+    public ResponseEntity<?> findByName(@PathVariable String name) {
+        Customer customer = customerService.findByName(name);
+        return new ResponseEntity<>(customer, HttpStatus.OK);
+    }
+
+    @GetMapping("/findByCpf/{cpf}")
+    public ResponseEntity<?> findByCpf(@PathVariable String cpf) {
+        Customer customer = customerService.findByCpf(cpf);
+        return new ResponseEntity<>(customer, HttpStatus.OK);
     }
 }

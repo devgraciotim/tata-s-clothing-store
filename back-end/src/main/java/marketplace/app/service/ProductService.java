@@ -51,4 +51,16 @@ public class ProductService {
         productRepository.save(product);
         return "Produto atualizado com sucesso!";
     }
+
+    public Product findByName(String name) {
+        return productRepository.findByName(name);
+    }
+
+    public Product topProduct() {
+        return productRepository.findTopByOrderBySalesDesc();
+    }
+
+    public Product mostExpensive() {
+        return productRepository.mostExpensive();
+    }
 }
